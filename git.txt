@@ -1,0 +1,27 @@
+git branch -r -l --no-merged  | cat
+  origin/2.0
+  origin/beta/focus
+  origin/develop
+  origin/feature/currency
+  origin/feature/exiting-number
+  origin/feature/font-weight-test
+  origin/feature/partner-page
+  origin/feature/partners-page
+  origin/feature/photo-anchor
+  origin/feature/print-html
+  origin/feature/suggest
+  origin/feature/tech-dti-sku-create
+  origin/feature/tech-update-webpack
+  origin/feature/tech-vite
+  origin/feature/tech-webpack
+  origin/feature/unit-tests
+  origin/fix/image-upload
+  origin/fix/photo-upload
+  origin/fix/suggest-icon
+  origin/hotfix/hide-print
+  origin/hotfix/test
+  origin/hotfix/timeslots-delay
+  origin/qa/front-master-back-release
+  origin/qa/front-release-back-master
+  origin/stand/release
+  origin/tech/update-webpack
