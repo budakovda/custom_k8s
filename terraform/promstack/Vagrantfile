@@ -59,11 +59,28 @@ Vagrant.configure("2") do |config|
                 
                 # environment
                 echo '
+                        NAME=promstack
                         IP=192.168.56.101
                         NS=monitoring
-                        CLUSTER=promstack
+                        GRAFANA=${NAME}-grafana
+                        PROM=${NAME}-prometheus
                 ' >> ~/.bashrc
                 source ~/.bashrc
                 
+                kind create cluster --name=${NAME}
+
+                cd /vagrant/examples
+                kubectl config view --context=${NAME} --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
+
+                terraform init
+                terraform apply -auto-approve
+
+                # kubectl port-forward --address localhost,${IP} --namespace ${NS} \
+                # svc/${GRAFANA} 80:80 >>/dev/null
+
+                # kubectl port-forward --address localhost,${IP} --namespace ${NS} \
+                # svc/${PROM} 9090:9090 >>/dev/null
+
+
                 SHELL
 end

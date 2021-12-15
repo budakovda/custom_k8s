@@ -30,19 +30,20 @@ terraform modules [link](https://learn.hashicorp.com/tutorials/terraform/module?
 
 
 systemctl start docker
-kind create cluster --name=promstack
+kind create cluster --name=${NAME}
 
 cd /vagrant/examples
-kubectl config view --context=promstack --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
+kubectl config view --context=${NAME} --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
 
 terraform init
 terraform apply -auto-approve
 
 kubectl port-forward --address localhost,${IP} --namespace ${NS} \
-svc/${grafana} 80:80 >>/dev/null
+svc/${GRAFANA} 80:80 >>/dev/null
 
 kubectl port-forward --address localhost,${IP} --namespace ${NS} \
-svc/${prom} 9090:9090 >>/dev/null
+svc/${PROM} 9090:9090 >>/dev/null
+
 
 
 ```
