@@ -1,0 +1,69 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby:
+
+cpu = "4"
+mem = "4096"
+box = "dbudakov/centos-kernel"
+
+# box = "centos/7"
+# box = "ubuntu/bionic64"
+name_host = "terraform"
+network = '192.168.56.101'
+network_vlan = "private_network"
+
+Vagrant.configure("2") do |config|
+        config.vm.define "os" do |os|
+                os.vm.box = box
+                os.vm.host_name = name_host
+                os.vm.network  network_vlan, ip: network
+                os.vm.provider :virtualbox do |vb|
+                        vb.name = name_host
+                        vb.customize ["modifyvm", :id, "--memory", mem]
+                        vb.customize ["modifyvm", :id, "--cpus", cpu]
+                end
+        end
+        config.vm.synced_folder "./share", "/vagrant"
+        config.vm.provision  "shell", inline: <<-SHELL
+        
+                # yum 
+                yum -y install \
+                        git
+
+                # docker
+                sudo yum check-update
+                curl -fsSL https://get.docker.com/ | sh
+                sudo usermod -aG docker root
+                sudo systemctl start docker
+                sudo systemctl enable docker
+
+                # terraform
+                sudo yum install -y yum-utils
+                sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+                sudo yum -y install terraform
+                terraform -install-autocomplete
+
+                # helm, https://helm.sh/docs/intro/install/
+                wget -q https://get.helm.sh/helm-v3.7.2-linux-386.tar.gz
+                tar -zxvf helm-v3.7.2-linux-386.tar.gz 
+                mv linux-386/helm /usr/bin/
+
+                # kind, https://kind.sigs.k8s.io/docs/user/quick-start/#installation
+                curl -s -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+                chmod +x ./kind
+                mv ./kind /usr/bin/
+
+                # kubectl
+                curl -s -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                chmod +x kubectl
+                mv ./kubectl /usr/bin/
+                
+                # environment
+                echo '
+                        IP=192.168.56.101
+                        NS=monitoring
+                        CLUSTER=custom
+                ' >> ~/.bashrc
+                source ~/.bashrc
+                
+                SHELL
+end
