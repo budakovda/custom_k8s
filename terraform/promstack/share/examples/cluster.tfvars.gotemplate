@@ -1,6 +1,6 @@
 module "prometheus-operator" {
   source                     = "../modules"
-  name                       = "prometheus-operator"
+  name                       = "promstack"
   namespace                  = "monitoring"
   create_namespace           = true
   value                      = fileexists("values.yaml") ? file("values.yaml") : ""
