@@ -76,8 +76,8 @@ Vagrant.configure("2") do |config|
                 terraform apply -auto-approve
                 
                 # forward
-                # kubectl port-forward --address localhost,${IP} --namespace ${NS} svc/${GRAFANA} 80:80 >>/dev/null &
-                # kubectl port-forward --address localhost,${IP} --namespace ${NS} svc/${PROM} 9090:9090 >>/dev/null &
+                kubectl port-forward --address localhost,${IP} --namespace ${NS} svc/${GRAFANA} 80:80 >>/dev/null &
+                kubectl port-forward --address localhost,${IP} --namespace ${NS} svc/${PROM} 9090:9090 >>/dev/null &
 
                 SHELL
 end
