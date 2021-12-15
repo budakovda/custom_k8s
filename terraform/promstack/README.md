@@ -28,11 +28,13 @@ terraform modules [link](https://learn.hashicorp.com/tutorials/terraform/module?
 
 ```sh
 
-git clone https://github.com/hashicorp/learn-terraform-k8s-crd-openfaas.git
-cd learn-terraform-k8s-crd-openfaas
+
 systemctl start docker
-kind create cluster --name=openfaas
-kubectl config view --context=kind-openfaas --raw --output="go-template-file=cluster.tfvars.gotemplate" > terraform.tfvars
+kind create cluster --name=promstack
+
+cd /vagrant/examples
+kubectl config view --context=promstack --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
+
 terraform init
 terraform apply -auto-approve
 
