@@ -36,3 +36,6 @@ openfaas-kubeconfig
 
 *lock.hcl
 .vagrant
+
+# promstack
+terraform/promstack/share/examples/main.tf
