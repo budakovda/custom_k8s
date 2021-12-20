@@ -1,30 +1,3 @@
-terraform {
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.6.1"
-    }
-
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.2.0"
-    }
-
-    time = {
-      source  = "hashicorp/time"
-      version = "~> 0.7.2"
-    }
-  }
-}
-
-provider "kubernetes" {
-  host = var.k8s_host
-
-  client_certificate     = base64decode(var.k8s_client_certificate)
-  client_key             = base64decode(var.k8s_client_key)
-  cluster_ca_certificate = base64decode(var.k8s_cluster_ca_certificate)
-}
-
 resource "kubernetes_namespace" "openfaas" {
   lifecycle {
     ignore_changes = [metadata]
@@ -54,15 +27,7 @@ resource "kubernetes_namespace" "openfaas-fn" {
   }
 }
 
-provider "helm" {
-  kubernetes {
-    host = var.k8s_host
 
-    client_certificate     = base64decode(var.k8s_client_certificate)
-    client_key             = base64decode(var.k8s_client_key)
-    cluster_ca_certificate = base64decode(var.k8s_cluster_ca_certificate)
-  }
-}
 
 # Need to wait a few seconds when removing the openfaas resource to give helm
 # time to finish cleaning up.

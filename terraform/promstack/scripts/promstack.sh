@@ -35,7 +35,7 @@ mv ./kubectl /usr/bin/
 # stand
 kind create cluster --name="${NAME}"
 cd /vagrant/examples || exit
-kubectl config view --context="${NAME}" --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
+# kubectl config view --context="${NAME}" --raw --output="go-template-file=cluster.tfvars.gotemplate" > main.tf
 kubectl create ns "${NS}"
 terraform init
 terraform apply -auto-approve

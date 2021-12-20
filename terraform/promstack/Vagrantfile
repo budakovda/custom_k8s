@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
         config.vm.synced_folder "./share", "/vagrant"
         config.vm.provision "file", source: "env/.bashrc", destination: "/tmp/.bashrc"
         config.vm.provision "shell", inline: "mv -f /tmp/.bashrc /root/.bashrc"
-        config.vm.provision "shell", path: "scripts/script.sh"
+        config.vm.provision "shell", path: "scripts/promstack.sh"
         config.vm.provision  "shell", inline: <<-SHELL
                 #...
         SHELL
