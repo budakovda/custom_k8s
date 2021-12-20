@@ -1,4 +1,4 @@
-module "grafana" {
+module "grafana-dashboards" {
   source = "../grafana"
 }
 
