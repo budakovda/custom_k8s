@@ -6,7 +6,7 @@
 
 ```sh
 module "grafana-dashboards" {
-  source = "../grafana"
+  source = "../grafana-dashboards"
 }
 ```
 
@@ -14,4 +14,10 @@ module "grafana-dashboards" {
 
 ```
 mv custom.json dashboards/
+```
+
+For delete configMaps files
+
+```sh
+kubectl delete -n ${NS} -l grafana_dashboard
 ```

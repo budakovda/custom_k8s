@@ -1,6 +1,5 @@
 module "grafana-dashboards" {
   source    = "../grafana-dashboards"
-  name      = var.name
   namespace = var.namespace
 }
 
