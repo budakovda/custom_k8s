@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=2086
 #./script svc-b2b-frontend front-sellers
 
 parse_branch() {
@@ -6,10 +7,10 @@ parse_branch() {
     echo -n "sed "
     awk -F '/' '
     {
-        for (i=2; i<=NF; i++) 
-            if (NF == 2) 
+        for (i=2; i<=NF; i++)
+            if (NF == 2)
                 printf "-e /"$i"/d ";
-            else if (i == 2) 
+            else if (i == 2)
                 printf "-e /"$i"-" ;
             else if (i != NF)
                 printf $i"-";
@@ -58,7 +59,7 @@ if [ $num -eq 0 ]; then
     exit 1;
 fi
 
-i=0; 
+i=0;
 CUT=$(while [ $i -lt $num ]; do echo ${arr[i]}; ((i++)); done | parse_branch)
 
 echo "get pods..."
