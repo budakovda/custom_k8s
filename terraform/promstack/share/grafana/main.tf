@@ -18,7 +18,7 @@ provider "kubernetes" {
 resource "kubernetes_config_map" "dashboards" {
   for_each = fileset("${path.module}/dashboards", "*")
   metadata {
-    name      = "${trimsuffix(each.value, ".json")}-ht"
+    name      = "promstack-kube-prometheus-${trimsuffix(each.value, ".json")}-ht"
     namespace = var.namespace
     labels    = { grafana_dashboard : 1 }
   }

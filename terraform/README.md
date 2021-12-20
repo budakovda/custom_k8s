@@ -5,6 +5,7 @@
 ```sh
 alias init="terraform init"
 alias apply="terraform apply -auto-approve"
+alias destroy="terraform destroy -auto-approve"
 alias clean="rm -rf .terraform *.tfstate*"
 conf() { if ! [ -z $1 ]; then kubectl describe configmaps $1 -n ${NS}; else kubectl get configmaps -n ${NS}; fi; }
 exec() { kubectl exec -it $(kubectl get pods -n ${NS} --no-headers=true -o custom-columns=NAME:.metadata.name | grep $1) -n ${NS} -- sh; }
