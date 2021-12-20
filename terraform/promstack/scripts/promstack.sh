@@ -35,10 +35,10 @@ mv ./kubectl /usr/bin/
 # stand
 kind create cluster --name="${NAME}"
 kubectl create ns "${NS}"
-cd /vagrant/examples || exit
-terraform init
-terraform apply -auto-approve
+# cd /vagrant/examples || exit
+# terraform init
+# terraform apply -auto-approve
 
 # forward
-kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${GRAFANA}" 80:80 >>/dev/null &
-kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${PROM}" 9090:9090 >>/dev/null &
+# kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${GRAFANA}" 80:80 >>/dev/null &
+# kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${PROM}" 9090:9090 >>/dev/null &

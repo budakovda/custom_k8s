@@ -1,7 +1,3 @@
-module "grafana-dashboards" {
-  source = "../grafana"
-}
-
 module "prometheus-operator" {
   source           = "../modules"
   name             = "promstack"

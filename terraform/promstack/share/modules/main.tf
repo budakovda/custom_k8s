@@ -1,3 +1,9 @@
+module "grafana-dashboards" {
+  source    = "../grafana-dashboards"
+  name      = var.name
+  namespace = var.namespace
+}
+
 resource "kubernetes_namespace" "openfaas" {
   lifecycle {
     ignore_changes = [metadata]
