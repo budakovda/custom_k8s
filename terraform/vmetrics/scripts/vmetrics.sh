@@ -15,12 +15,7 @@ sudo systemctl enable docker
 sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 sudo yum -y install terraform
-terraform -install-autocomplete
-
-# terragrunt
-wget -q https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.16/terragrunt_linux_386
-chmod +x terragrunt_linux_386
-mv terragrunt_linux_386 /usr/bin/terragrunt
+# terraform -install-autocomplete
 
 # helm, https://helm.sh/docs/intro/install/
 wget -q https://get.helm.sh/helm-v3.7.2-linux-386.tar.gz
@@ -40,10 +35,10 @@ mv ./kubectl /usr/bin/
 # stand
 kind create cluster --name="${NAME}"
 kubectl create ns "${NS}"
-# cd /vagrant/examples || exit
-# terraform init
-# terraform apply -auto-approve
+cd /vagrant/examples || exit
+terraform init
+terraform apply -auto-approve
 
 # forward
-# kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${GRAFANA}" 80:80 >>/dev/null &
-# kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${PROM}" 9090:9090 >>/dev/null &
+SVC_GRAFANA=$(kubectl get svc --namespace "${NS}" -l "app.kubernetes.io/name=grafana" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace "${NS}" port-forward --address localhost,"${IP}" svc/"${SVC_GRAFANA}" 80 &

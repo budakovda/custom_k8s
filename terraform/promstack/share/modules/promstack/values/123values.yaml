@@ -1,0 +1,11 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorNamespaceSecector:
+      - name: "postgresql"
+        namespaceSelector:
+          any: true
+        endpoints:
+          - port: "http-metrics"
+          - targetPort: "http-metics/TCP"
+            scheme: tcp
+        # selector: {}

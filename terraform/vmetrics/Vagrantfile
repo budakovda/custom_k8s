@@ -2,13 +2,13 @@
 # vi: set ft=ruby:
 
 cpu = "4"
-mem = "8196"
+mem = "4096"
 box = "dbudakov/centos-kernel"
 
 # box = "centos/7"
 # box = "ubuntu/bionic64"
-name_host = "terraform"
-network = '192.168.56.101'
+name_host = "vmetrics"
+network = '192.168.56.102'
 network_vlan = "private_network"
 
 Vagrant.configure("2") do |config|
@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
         config.vm.synced_folder "./share", "/vagrant"
         config.vm.provision "file", source: "env/.bashrc", destination: "/tmp/.bashrc"
         config.vm.provision "shell", inline: "mv -f /tmp/.bashrc /root/.bashrc"
-        config.vm.provision "shell", path: "scripts/promstack.sh"
+        config.vm.provision "shell", path: "scripts/vmetrics.sh"
         config.vm.provision  "shell", inline: <<-SHELL
                 #...
         SHELL

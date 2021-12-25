@@ -1,0 +1,17 @@
+serviceExternalIp:
+  name: template
+  labels:
+    app: custom-label
+  service:
+    enabled: false
+    ports:
+      - name: "http"
+        protocol: "TCP"
+        port: "80"
+        targetPort: "80"
+      - name: "http-metrics"
+        protocol: "TCP"
+        port: "81"
+        targetPort: "81"
+    endpoints:
+      ip: "1.1.1.1"

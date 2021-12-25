@@ -1,0 +1,17 @@
+serviceExternalIp:
+  name: template
+  labels:
+    app: custom-label
+  service:
+    enabled: true
+    ports:
+      - name: "http"
+        protocol: "TCP"
+        port: "2222"
+        targetPort: "2222"
+      - name: "http-metrics"
+        protocol: "TCP"
+        port: "9100"
+        targetPort: "9100"
+    endpoints:
+      ip: "192.168.56.101"

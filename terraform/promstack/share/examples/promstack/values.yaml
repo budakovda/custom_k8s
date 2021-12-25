@@ -1,0 +1,59 @@
+grafana:
+  enabled: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: infra-default
+          type: file
+          folder: "Infra-default"
+          disableDeletion: false
+          editable: true
+          allowUiUpdates: true
+          options:
+            path: /tmp/dashboards
+        - name: default
+          type: file
+          folder: "Infra-default"
+          disableDeletion: false
+          editable: true
+          allowUiUpdates: true
+          options:
+            path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      pmm:
+        gnetId: 10017
+        revision: 1
+        datasource: Prometheus
+      postgres:
+        gnetId: 9628
+        revision: 1
+        datasource: Prometheus
+  sidecar:
+    # dashboards:
+    # enabled: true
+    multicluster:
+      global:
+        enabled: true
+    SCProvider: false
+alertmanager:
+  enabled: true
+prometheusOperator:
+  enabled: true
+kubeStateMetrics:
+  enabled: true
+nodeExporter:
+  enabled: true
+
+prometheus:
+  additionalServiceMonitors:
+    - name: pg-exporter
+      endpoints:
+        - port: http
+        - port: http-metrics
+      namespaceSelector:
+        any: true
+      selector:
+        matchLabels:
+          app: node-exporter

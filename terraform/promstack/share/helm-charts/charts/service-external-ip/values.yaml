@@ -1,0 +1,31 @@
+# serviceExternalIp configuration.
+
+serviceExternalIp:
+
+  name: template
+  labels:
+    app: custom-label
+  service:
+    enabled: true
+    ports:
+      - name: "http-metrics"
+        protocol: "TCP"
+        port: "80"
+        targetPort: "80"
+    endpoints:
+      ip: "1.1.1.1"
+
+  # -- NodeSelector configuration of the serviceExternalIp.
+  nodeSelector: { }
+
+  # -- Deployment affinity configuration. If not set the default one will be used.
+  affinity: { }
+
+  # -- Tolerations of the serviceExternalIp pods.
+  tolerations: [ ]
+
+  # -- Annotations used in the serviceExternalIp resources.
+  annotations: { }
+
+# -- Annotations used in all application resources.
+annotations: { }

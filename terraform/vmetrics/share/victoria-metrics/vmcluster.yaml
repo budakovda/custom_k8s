@@ -1,0 +1,22 @@
+vmselect:
+  extraArgs:
+    dedup.minScrapeInterval: 1ms
+    replicationFactor: 2
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8481"
+  replicaCount: 3
+
+vminsert:
+  extraArgs:
+    replicationFactor: 2
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8480"
+  replicaCount: 3
+
+vmstorage:
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "8482"
+  replicaCount: 3

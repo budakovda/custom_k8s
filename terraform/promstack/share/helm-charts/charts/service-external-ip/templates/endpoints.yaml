@@ -1,0 +1,18 @@
+{{- if .Values.serviceExternalIp.service.enabled }}
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ include "serviceExternalIp.name" . | quote }}
+  labels:
+    {{- include "serviceExternalIp.app" . | nindent 4 }}
+subsets:
+  - addresses:
+      {{- with .Values.serviceExternalIp.service.endpoints }}
+      - ip: {{ .ip }}
+      {{- end }}
+    ports:
+    {{- range .Values.serviceExternalIp.service.ports }}
+      - port: {{ .port }}
+        name: {{ .name | quote }}
+    {{- end }}
+{{- end }}

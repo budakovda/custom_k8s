@@ -1,0 +1,16 @@
+{{- if .Values.serviceExternalIp.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "serviceExternalIp.name" . | quote }}
+  labels:
+     {{- include "serviceExternalIp.app" . | nindent 4 }}
+spec:
+  ports:
+    {{- range .Values.serviceExternalIp.service.ports }}
+    - name: {{ .name | quote }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol | quote }}
+    {{- end }}
+{{- end }}
