@@ -20,9 +20,10 @@ helm search repo vm/
 SVC_NAME=$(kubectl get svc --namespace "${NS}" -l "app=vmselect" -o jsonpath="{.items[0].metadata.name}")
 kubectl --namespace "${NS}" port-forward --address localhost,"${IP}" svc/"${SVC_NAME}" 8481
 
-kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${GRAFANA}" 80:80 >>/dev/null &
+SVC_GRAFANA=$(kubectl get svc --namespace "${NS}" -l "app.kubernetes.io/name=grafana" -o jsonpath="{.items[0].metadata.name}")
+kubectl port-forward --address localhost,"${IP}" --namespace "${NS}" svc/"${SVC_GRAFANA}" 80:80 >>/dev/null &
 
-SVC_ALERT=
+SVC_ALERT=$(kubectl get svc --namespace "${NS}" -l "app=server" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward --address localhost,"${IP}" --namespace ${NS} svc/${SVC_ALERT} 8880:8880 >>/dev/null
 ```
 
