@@ -41,3 +41,6 @@ dashboards:
   #     gnetId: 14205
   #     revision: 1
   #     datasource: victoriametrics
+
+plugins:
+  - devopsprodigy-kubegraf-app

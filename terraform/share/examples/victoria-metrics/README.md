@@ -27,6 +27,9 @@ kubectl port-forward --address localhost,"${IP}" --namespace projectcontour svc/
 
 SVC_ALERT=$(kubectl get svc --namespace "${NS}" -l "app=server" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward --address localhost,"${IP}" --namespace ${NS} svc/${SVC_ALERT} 8880:8880 >>/dev/null
+
+SVC_ALERT_MANAGER=$(kubectl get svc --namespace "${NS}" -l "app=alertmanager" -o jsonpath="{.items[0].metadata.name}")
+kubectl port-forward --address localhost,"${IP}" --namespace ${NS} svc/${SVC_ALERT_MANAGER} 9093:9093 >>/dev/null
 ```
 
 ## set vmalert

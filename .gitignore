@@ -39,3 +39,4 @@ openfaas-kubeconfig
 
 # vagrant
 .bash_history
+.terragrunt*

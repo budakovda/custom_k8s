@@ -16,14 +16,8 @@ resource "helm_release" "prom" {
   values           = [file("./values.yaml"), yamlencode(local.prometheus_operator_values), var.value]
 }
 
-resource "kubernetes_config_map" "grafana-dashboards" {
-  for_each = fileset("${path.module}/dashboards", "*")
-  metadata {
-    name      = trimsuffix(format("%.60s-ht", format("%s-%s", trimsuffix("${format("%.26s", "${var.name}-kube-prometheus-stack")}", "-"), trimsuffix(each.value, ".json"))), "-")
-    namespace = var.namespace
-    labels    = { grafana_dashboard : 1 }
-  }
-  data = {
-    "${each.value}" = "${file("${path.module}/dashboards/${each.value}")}"
-  }
-}
+
+    // command = <<-EOT
+    //   kubectl delete configmaps promstack-kube-prometheus-prometheus -n monitoring
+    //   kubectl restart pods -l app.kubernetes.io/name=grafana  -n monitoring
+    // EOT

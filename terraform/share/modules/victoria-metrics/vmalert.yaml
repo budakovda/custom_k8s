@@ -213,7 +213,7 @@ serviceMonitor:
 #    scrapeTimeout: 5s
 
 alertmanager:
-  enabled: false
+  enabled: true
   replicaCount: 1
   podMetadata:
     labels: {}

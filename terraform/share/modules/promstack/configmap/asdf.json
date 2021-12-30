@@ -1,0 +1,19 @@
+{{define "config"}}
+{
+    "a": "A",
+    "b": {
+        "b1": 1
+    }
+}
+{{end}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: monitoring
+  name: configmap
+  labels:
+    grafana_dashboard : "1"
+    app: grafana
+data:
+  prometheus.json: {{ (include "config" .) | trim | quote }}

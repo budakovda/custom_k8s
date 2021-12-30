@@ -4,5 +4,6 @@ resource "helm_release" "grafana" {
   create_namespace = var.create_namespace
   repository       = "https://grafana.github.io/helm-charts"
   chart            = "grafana"
-  values           = [file("${path.module}/values.yaml"), var.value]
+  values           = [file("${path.module}/vm_grafana.yaml"), var.value]
+  // values           = [file("${path.module}/values.yaml"), var.value]
 }

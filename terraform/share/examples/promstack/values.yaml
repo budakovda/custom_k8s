@@ -22,21 +22,26 @@ grafana:
             path: /var/lib/grafana/dashboards/default
   dashboards:
     default:
-      pmm:
-        gnetId: 10017
-        revision: 1
-        datasource: Prometheus
-      postgres:
-        gnetId: 9628
-        revision: 1
-        datasource: Prometheus
+      # pmm:
+      #   gnetId: 10017
+      #   revision: 1
+      #   datasource: Prometheus-victoria
+      # postgres:
+      #   gnetId: 9628
+      #   revision: 1
+      #   datasource: Prometheus-victoria
   sidecar:
-    # dashboards:
-    # enabled: true
+    dashboards:
+      enabled: true
     multicluster:
       global:
         enabled: true
     SCProvider: false
+
+
+  # plugins:
+  #   - devopsprodigy-kubegraf-app
+
 alertmanager:
   enabled: true
 prometheusOperator:
@@ -50,8 +55,8 @@ prometheus:
   additionalServiceMonitors:
     - name: pg-exporter
       endpoints:
-        - port: http
-        - port: http-metrics
+        - port: node-exporter
+        - port: postgre-exporter
       namespaceSelector:
         any: true
       selector:
